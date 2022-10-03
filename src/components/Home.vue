@@ -2,12 +2,27 @@
   <div class="flex">
     <h1>Tower Of Honai Solution</h1>
   </div>
-  <div class="flex">
-    <input type="number" ref="noOfDisks" placeholder="Enter the number of Disks" v-model.number="disks"
-      @keypress.enter="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">
+  <div class="flex wrapper">
+    <!-- <input type="number" ref="noOfDisks" placeholder="Enter the number of Disks" v-model.number="disks"
+      @keypress.enter="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')" max="10"
+      min="2"> -->
+
+    <label id="label" for="disk">Choose the number of disk</label>
+    <select name="" id="disk" v-model.number="disks"
+      v-on:change="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
   </div>
-  <button @click="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">Calculate
-    Steps</button>
+  <!-- <button @click="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">Calculate
+    Steps</button> -->
 
   <div class="steps flex">
     <h3>Total Steps : {{ this.tower.length }}</h3>
@@ -59,9 +74,9 @@ export default {
 
     }
   },
-  mounted() {
-    this.$refs["noOfDisks"].focus()
-  },
+  // mounted() {
+  //   this.$refs["noOfDisks"].focus()
+  // },
 
 }
 </script>
@@ -79,6 +94,34 @@ input {
     widows: 300px;
     padding: 8px 16px;
   }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#label {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+#disk {
+  color: #DFE8CC;
+padding: 0.4rem 0.8rem;
+font-size: 1rem;
+font-weight: bold;
+display: block;
+width: 275px;
+outline: none;
+border: none;
+background: #99680a;
+border-radius: 3px;
+margin-top: 8px;
 }
 
 .result {

@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       tower: [],
-      disks: null,
+      disks: 3,
       steps: null
     }
   },
@@ -74,9 +74,10 @@ export default {
 
     }
   },
-  // mounted() {
-  //   this.$refs["noOfDisks"].focus()
-  // },
+  mounted() {
+    this.tower.splice(0, this.tower.length)
+    this.solveTower(this.disks, 'A', 'C', 'B')
+  },
 
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <h1>Tower Of Honai Solution</h1>
+    <h1>Tower Of Hanoi Solution</h1>
   </div>
   <div class="flex wrapper">
     <!-- <input type="number" ref="noOfDisks" placeholder="Enter the number of Disks" v-model.number="disks"
@@ -112,16 +112,16 @@ input {
 
 #disk {
   color: #DFE8CC;
-padding: 0.4rem 0.8rem;
-font-size: 1rem;
-font-weight: bold;
-display: block;
-width: 275px;
-outline: none;
-border: none;
-background: #99680a;
-border-radius: 3px;
-margin-top: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  width: 275px;
+  outline: none;
+  border: none;
+  background: #99680a;
+  border-radius: 3px;
+  margin-top: 8px;
 }
 
 .result {

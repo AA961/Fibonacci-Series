@@ -1,196 +1,109 @@
 <template>
-  <div class="flex">
-    <h1>Tower Of Hanoi Solution</h1>
-  </div>
-  <div class="flex wrapper">
-    <!-- <input type="number" ref="noOfDisks" placeholder="Enter the number of Disks" v-model.number="disks"
-      @keypress.enter="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')" max="10"
-      min="2"> -->
+  <section class="fibonacci-container">
+    <div class="flex">
+      <h1>Fibonacci Series</h1>
+    </div>
+    <div class="flex wrapper">
+      <label for="num-terms">Enter number of terms:</label>
+      <input type="number" id="num-terms" v-model="numTerms" min="1" @input="generateSeries">
+    </div>
+  
+    <div class="series-container">
+      <div v-for="(term, index) in series" :key="index" class="term">{{ term }}</div>
+    </div>
 
-    <label id="label" for="disk">Choose the number of disk</label>
-    <select name="" id="disk" v-model.number="disks"
-      v-on:change="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-  </div>
-  <!-- <button @click="this.tower.splice(0, this.tower.length), this.solveTower(this.disks, 'A', 'C', 'B')">Calculate
-    Steps</button> -->
+    <div class="signature flex" v-if="isSign">
+      <h5>Theek Ha Mam Jee...?</h5>
+    </div>
 
-  <div class="steps flex">
-    <h3>Total Steps : {{ this.tower.length }}</h3>
-  </div>
-
-  <div class="result ">
-    <ul v-for="(step, index) in tower">
-      <li v-for="s in step">{{ JSON.stringify(s).split('"').join(' ').substr(0, 10) }}
-        <span class="text">{{ JSON.stringify(s).split('"').join(' ').substr(10, 2)
-        }}</span>{{ JSON.stringify(s).split('"').join(' ').substr(12, 5) }}
-        <span class="text">{{ JSON.stringify(s).split('"').join(' ').substr(17, 2) }}</span>
-        {{ JSON.stringify(s).split('"').join(' ').substr(19, 4) }}
-        <span class="text">{{ JSON.stringify(s).split('"').join(' ').substr(22, 2) }}</span>
-        <span class="checkbox"><input type="checkbox"></span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="signature flex">
-    <h5>Project By Ammar Ahmed</h5>
-  </div>
+  </section>
 
 </template>
 
 <script>
 export default {
-  name: "Home",
   data() {
     return {
-      tower: [],
-      disks: 3,
-      steps: null
-    }
-  },
-  computed: {
-
+      numTerms: 1,
+      series: [0, 1],
+      isSign: false
+    };
   },
   methods: {
-    solveTower(n, fromStick, toStick, usingStick) {
+    generateSeries() {
+      this.isSign = true;
+      const { numTerms } = this;
+      let t1 = 0,
+        t2 = 1,
+        nextTerm;
+      const series = [t1, t2];
 
-      if (n == 1) {
-        this.tower.push([`Move Disk 1 From ${fromStick} to ${toStick}`])
-        this.steps++;
-        return
+      for (let i = 2; i < numTerms; i++) {
+        nextTerm = t1 + t2;
+        t1 = t2;
+        t2 = nextTerm;
+        series.push(nextTerm);
       }
-      this.solveTower(n - 1, fromStick, usingStick, toStick)
-      this.tower.push([`Move Disk ${n} From ${fromStick} to ${toStick}`])
-      this.solveTower(n - 1, usingStick, toStick, fromStick, this.steps++)
 
+      this.series = series;
     }
-  },
-  mounted() {
-    this.tower.splice(0, this.tower.length)
-    this.solveTower(this.disks, 'A', 'C', 'B')
-  },
-
-}
+  }
+};
 </script>
 
 <style scoped lang="scss">
-input {
-  padding: 0.6rem 1rem;
-  border: 3px solid black;
-  border-radius: 6px;
-  outline: none;
-  font-size: 1rem;
-  width: 400px;
-
-  @media (max-width:576px) {
-    widows: 300px;
-    padding: 8px 16px;
-  }
+.fibonacci-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.wrapper {
+.series-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  margin: 2rem auto;
+
+
 }
 
-#label {
-  display: block;
-  font-size: 1.4rem;
+.term {
+  background-color: #ccd6a6;
   font-weight: 600;
-  text-transform: capitalize;
-}
-
-#disk {
-  color: #DFE8CC;
-  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  width: 450px;
+  padding: .6rem 1rem;
+  position: relative;
   font-size: 1rem;
+  list-style-type: none;
+  color: #6c4700;
+  transition: all .3s ease-in-out;
+  margin: 8px auto;
+
+  &:hover {
+    color: #CCD6A6;
+    background-color: black;
+    scale: 1.1;
+  }
+}
+
+label {
   font-weight: bold;
-  display: block;
-  width: 275px;
-  outline: none;
-  border: none;
-  background: #99680a;
-  border-radius: 3px;
-  margin-top: 8px;
+  margin-right: 1rem;
 }
 
-.result {
-  @media (max-width:576px) {
-    transform: translateX(-16px);
-  }
-
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    li {
-      background-color: #CCD6A6;
-      // color: black;
-      font-weight: 600;
-      border-radius: 12px;
-      width: 450px;
-      padding: 0.6rem 1rem;
-      position: relative;
-      font-size: 1rem;
-      list-style-type: none;
-      color: #6c4700;
-      transition: all 0.3s ease-in-out;
-
-      &:hover {
-        color: #CCD6A6;
-        background-color: black;
-        scale: 1.1;
-      }
-
-      .text {
-        color: #0040ff !important;
-        font-size: 1.1rem;
-        font-weight: 800;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-        &:nth-child(even) {
-          color: rebeccapurple !important;
-        }
-      }
-
-      @media (max-width:576px) {
-        width: 300px;
-        padding: 8px 16px;
-      }
-
-
-      .checkbox {
-        position: absolute;
-        right: 50%;
-        top: 20%;
-
-        &:hover {
-          cursor: pointer;
-
-        }
-
-        @media (max-width:576px) {
-          right: 30%;
-        }
-
-
-      }
-    }
-  }
+input {
+  padding: 0.5rem;
+  border-radius: 3rem;
+  border: 2px solid #ccc;
+  width: 5rem;
+  text-align: center;
+  font-size: 1rem;
 }
+
+
+
 
 button {
   padding: 0.6rem 1rem;
@@ -219,7 +132,7 @@ h1 {
   font-size: 64px;
 
   @media (max-width:576px) {
-    font-size: 32px;
+    font-size: 37px;
   }
 }
 
